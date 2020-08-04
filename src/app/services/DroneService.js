@@ -32,6 +32,10 @@ class DroneService {
     async findDroneByName(name) {
         return await Drone.findOne({name: name})
     }
+
+    async findByTracking(condiction) {
+        return await Drone.find({tracking : condiction})
+    }
 }
 
 module.exports = new DroneService()

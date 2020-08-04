@@ -4,6 +4,7 @@ const cors= require('cors');
 const requireDir = require('require-dir');
 const swaggerUi = require('swagger-ui-express');
 const specs = require('./app/doc/swaggerDef');
+const amqpService = require('./app/services/AmqpService');
 
 class AppController{
     constructor(){
@@ -15,6 +16,8 @@ class AppController{
 
         this.database()        
         requireDir('./app/models');
+
+        amqpService.start();
 
         app.use('/api', require('./routes'))
 
