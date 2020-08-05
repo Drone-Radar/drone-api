@@ -40,7 +40,8 @@ module.exports = new AmqpService();
 
 function whenConnected() {
     startPublisher();
-    startWorker();
+    //deixar ligado apenas produtor. consumidor ficará ligado no outro microserviço
+    //startWorker();
 }
 
 // A worker that acks messages only if processed succesfully
@@ -114,19 +115,10 @@ function publish(exchange, routingKey, content) {
 }
 
 setInterval(function () {
-
-    //let drone = await droneService.findByTracking(true);
-    let drone = async function(a,b){
-        await droneService.findByTracking(true);
-    }
-    //publish(exchangeAmqp, queue, new Buffer.from(JSON.stringify(drone)));
-
-    /*var historico = {
-        id: 'drone3',
-        temperatura: 10,
-        umidade: 40,
-        latitude: 10,
-        longitude: 10,
-    };
-    publish(exchangeAmqp, queue, new Buffer.from(JSON.stringify(historico)));*/
+    let drone = droneService.findAll();
+    drone.then(listDrone =>{
+        console.log('[SERVICE] Enviando lista de drones para a fila')
+        publish(exchangeAmqp, queue, new Buffer.from(JSON.stringify(listDrone)));
+        console.log('[SERVICE] Lista de drones enviada para fila')
+    })
 }, 10000);

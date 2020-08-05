@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const mongoosePaginate = require('mongoose-paginate')
 
 //Criando o DroneSchema 
 
@@ -12,8 +11,10 @@ const mongoosePaginate = require('mongoose-paginate')
  *        properties:
  *          name:
  *              type: string
- *          geolocation:
- *              type: [number]
+ *          latitude:
+ *              type: number
+ *          longitude:
+ *              type: number
  *          temperature:
  *              type: number
  *          humidity:
@@ -22,7 +23,8 @@ const mongoosePaginate = require('mongoose-paginate')
  *              type: boolean
  *        required:
  *          - name
- *          - geolocation
+ *          - latitude
+ *          - longitude
  *          - temperature
  *          - humidity
  *          - tracking
@@ -33,9 +35,12 @@ const DroneSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    geolocation:{
-        type: [Number],
-        index: '2d',
+    latitude:{
+        type: Number,
+        required: true,
+    },
+    longitude:{
+        type: Number,
         required: true,
     },
     temperature:{
@@ -50,10 +55,10 @@ const DroneSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
     },
+    createdAt:{
+        type: Date,
+        default: Date.now,
+    },
 })
 
-// Registrando o mongoose paginate da Aplicação
-DroneSchema.plugin(mongoosePaginate)
-
-// Registrando o schema
-mongoose.model('Drone', DroneSchema)
+module.exports = mongoose.model('Drone', DroneSchema);

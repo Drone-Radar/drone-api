@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Drone = mongoose.model('Drone');
+var Drone = require('../models/Drone')
 
 class DroneService {
     constructor(){
@@ -14,7 +14,7 @@ class DroneService {
     }
 
     async findAll(page) {
-        return await Drone.paginate({}, { page, limit:10 })
+        return await Drone.find()
     }
     
     async createDrone(drone){
@@ -36,6 +36,7 @@ class DroneService {
     async findByTracking(condiction) {
         return await Drone.find({tracking : condiction})
     }
+
 }
 
 module.exports = new DroneService()

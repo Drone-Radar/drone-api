@@ -24,16 +24,16 @@ routes.get('/drones', DroneController.index)
 /**
  * @swagger
  * path:
- *  /drones/{id}:
+ *  /drones/{name}:
  *    get:
  *      tags:
  *          - Drones
- *      summary: Drone por Id
+ *      summary: Drone por name
  * 
  *      parameters:
- *          - name: id
+ *          - name: name
  *            in: path
- *            description: Id do Drone
+ *            description: Name do Drone
  *            required: true
  *            schema:
  *              type: string
@@ -46,7 +46,7 @@ routes.get('/drones', DroneController.index)
  *              schema:
  *                  $ref: '#/components/schemas/Drone'
  */
-routes.get('/drones/:id',DroneController.show);
+routes.get('/drones/:name',DroneController.show);
 
 /**
  * @swagger
@@ -80,7 +80,7 @@ routes.post('/drones', DroneController.store);
 /**
  * @swagger
  * path:
- *  /drones/{id}:
+ *  /drones/{name}:
  *    put:
  *      tags:
  *          - Drones
@@ -88,9 +88,9 @@ routes.post('/drones', DroneController.store);
  *      summary: Altera um Drone
  * 
  *      parameters:
- *          - name: id
+ *          - name: name
  *            in: path
- *            description: Id do Drone
+ *            description: Name do Drone
  *            required: true
  *            schema:
  *              type: string
@@ -113,12 +113,12 @@ routes.post('/drones', DroneController.store);
  *        "500":
  *          description: Erro        
  */
-routes.put('/drones/:id',DroneController.update);
+routes.put('/drones/:name',DroneController.update);
 
 /**
  * @swagger
  * path:
- *  /drones/{id}:
+ *  /drones/{name}:
  *    delete:
  *      tags:
  *          - Drones
@@ -126,9 +126,9 @@ routes.put('/drones/:id',DroneController.update);
  *      summary: Deleta um Drone
  * 
  *      parameters:
- *          - name: id
+ *          - name: name
  *            in: path
- *            description: Id do Drone
+ *            description: Name do Drone
  *            required: true
  *            schema:
  *              type: string
@@ -144,6 +144,6 @@ routes.put('/drones/:id',DroneController.update);
  *        "500":
  *          description: Erro        
  */
-routes.delete('/drones/:id', DroneController.destroy);
+routes.delete('/drones/:name', DroneController.destroy);
 
 module.exports = routes
